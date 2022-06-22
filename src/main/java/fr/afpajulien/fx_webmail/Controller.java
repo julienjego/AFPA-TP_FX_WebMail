@@ -9,7 +9,6 @@ import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -138,10 +137,10 @@ public class Controller implements Initializable {
 		if (txtMsg.getText().isEmpty()) {
 			System.exit(0);
 		} else {
-			Optional<ButtonType> result = alert.showAndWait();
-			if (result.get() == ButtonType.OK) {
+			ButtonType result = alert.showAndWait().orElseThrow();
+			if (result == ButtonType.OK) {
 				System.exit(0);
-			} else if (result.get() == ButtonType.CANCEL) {
+			} else if (result == ButtonType.CANCEL) {
 				alert.close();
 			}
 		}
@@ -155,10 +154,10 @@ public class Controller implements Initializable {
 		alert.getDialogPane().setHeaderText("Voulez-vous vraiment créer un nouveau message ?");
 
 		if (!txtMsg.getText().isEmpty()) {
-			Optional<ButtonType> result = alert.showAndWait();
-			if (result.get() == ButtonType.OK) {
+			ButtonType result = alert.showAndWait().orElseThrow();
+			if (result == ButtonType.OK) {
 				createNewMsg();
-			} else if (result.get() == ButtonType.CANCEL) {
+			} else if (result == ButtonType.CANCEL) {
 				alert.close();
 			}
 		}
