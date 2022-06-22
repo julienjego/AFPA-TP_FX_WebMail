@@ -68,6 +68,34 @@ public class Controller implements Initializable {
 		btnMsgSend.setDisable(true);
 		btnMsgSendFooter.setDisable(true);
 		itmSend.setDisable(true);
+
+		init();
+
+	}
+
+	public void init() {
+
+		initTxtSubject();
+		initTxtMsg();
+		initcbxDest();
+	}
+
+	private void initTxtSubject() {
+
+		txtSubject.textProperty().addListener(e -> checkIfEmpty()); // Event fire every time text is changed.
+
+	}
+
+	private void initTxtMsg() {
+
+		txtMsg.textProperty().addListener(e -> checkIfEmpty());
+
+	}
+
+	private void initcbxDest() {
+
+		cbxDest.valueProperty().addListener((e -> checkIfEmpty()));
+
 	}
 
 	private void addMailAddresses() throws URISyntaxException {
