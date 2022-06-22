@@ -13,18 +13,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="445.0" prefWidth="709.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.afpajulien.fx_webmail.Controller">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="445.0" prefWidth="709.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.afpajulien.fx_webmail.Controller">
    <top>
       <MenuBar fx:id="mainMenu" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="Message">
             <items>
-              <MenuItem mnemonicParsing="false" text="Nouveau" />
-                  <MenuItem mnemonicParsing="false" text="Ouvrir" />
+              <MenuItem mnemonicParsing="false" onAction="#createNewMsg" text="Nouveau" />
+                  <MenuItem mnemonicParsing="false" onAction="#openMsg" text="Ouvrir" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Envoyer" />
+                  <MenuItem fx:id="itmSend" mnemonicParsing="false" text="Envoyer" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#quit" text="Quitter" />
+                  <MenuItem mnemonicParsing="false" onAction="#confirmQuit" text="Quitter" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Options">
@@ -34,7 +34,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="?">
             <items>
-              <MenuItem mnemonicParsing="false" text="A propos" />
+              <MenuItem fx:id="ItmAbout" mnemonicParsing="false" text="A propos" />
             </items>
           </Menu>
         </menus>
@@ -43,8 +43,8 @@
    <bottom>
       <AnchorPane prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="lblMsgSend" layoutX="27.0" layoutY="9.0" style="-fx-font-weight: bold; -fx-background-color: white; -fx-padding: 5px;" text="Envoyer le message" />
             <Label fx:id="lblMsgError" layoutX="452.0" layoutY="14.0" />
+            <Button fx:id="btnMsgSendFooter" layoutX="34.0" layoutY="10.0" mnemonicParsing="false" onAction="#sendMsg" text="Envoyer le message" />
          </children>
       </AnchorPane>
    </bottom>
@@ -53,18 +53,18 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Button fx:id="btnMsgNew" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" text="Nouveau" />
-                  <Button fx:id="btnMsgOpen" layoutX="84.0" layoutY="16.0" mnemonicParsing="false" text="Ouvrir" />
+                  <Button fx:id="btnMsgNew" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" onAction="#confirmNewMsg" text="Nouveau" />
+                  <Button fx:id="btnMsgOpen" layoutX="84.0" layoutY="16.0" mnemonicParsing="false" onAction="#openMsg" text="Ouvrir" />
                   <Button fx:id="btnMsgSend" layoutX="152.0" layoutY="16.0" mnemonicParsing="false" text="Envoyer" />
-                  <TextField fx:id="txtSubject" layoutX="281.0" layoutY="16.0" />
+                  <TextField fx:id="txtSubject" layoutX="281.0" layoutY="16.0" onMouseExited="#checkIfEmpty" promptText="Saisissez un objet..." />
                   <Label layoutX="245.0" layoutY="20.0" text="Sujet" />
-                  <ComboBox fx:id="cbxDest" layoutX="497.0" layoutY="16.0" prefHeight="25.0" prefWidth="196.0" promptText="Sélectionner un destinataire" />
+                  <ComboBox fx:id="cbxDest" layoutX="497.0" layoutY="16.0" onAction="#checkIfEmpty" prefHeight="25.0" prefWidth="196.0" promptText="Sélectionner un destinataire" />
                   <Label layoutX="458.0" layoutY="20.0" text="Pour" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <TextArea layoutX="8.0" layoutY="14.0" prefHeight="293.0" prefWidth="691.0" />
+                  <TextArea fx:id="txtMsg" layoutX="8.0" layoutY="14.0" onMouseExited="#checkIfEmpty" prefHeight="293.0" prefWidth="691.0" promptText="Ecrivez votre message..." />
                </children>
             </AnchorPane>
         </items>
