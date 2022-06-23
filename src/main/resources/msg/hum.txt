@@ -1,0 +1,1 @@
+Si je n'existe pas getResource ne focntionne pas :(.

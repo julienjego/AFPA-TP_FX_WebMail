@@ -56,15 +56,15 @@
                   <Button fx:id="btnMsgNew" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" onAction="#confirmNewMsg" text="Nouveau" />
                   <Button fx:id="btnMsgOpen" layoutX="84.0" layoutY="16.0" mnemonicParsing="false" onAction="#openMsg" text="Ouvrir" />
                   <Button fx:id="btnMsgSend" layoutX="152.0" layoutY="16.0" mnemonicParsing="false" text="Envoyer" />
-                  <TextField fx:id="txtSubject" layoutX="281.0" layoutY="16.0" onMouseExited="#checkIfEmpty" promptText="Saisissez un objet..." />
+                  <TextField fx:id="txtSubject" layoutX="281.0" layoutY="16.0" promptText="Saisissez un objet..." />
                   <Label layoutX="245.0" layoutY="20.0" text="Sujet" />
-                  <ComboBox fx:id="cbxDest" layoutX="497.0" layoutY="16.0" onAction="#checkIfEmpty" prefHeight="25.0" prefWidth="196.0" promptText="Sélectionner un destinataire" />
+                  <ComboBox fx:id="cbxDest" layoutX="497.0" layoutY="16.0" prefHeight="25.0" prefWidth="196.0" promptText="Sélectionner un destinataire" />
                   <Label layoutX="458.0" layoutY="20.0" text="Pour" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <TextArea fx:id="txtMsg" layoutX="8.0" layoutY="14.0" onMouseExited="#checkIfEmpty" prefHeight="293.0" prefWidth="691.0" promptText="Ecrivez votre message..." />
+                  <TextArea fx:id="txtMsg" layoutX="8.0" layoutY="14.0" prefHeight="293.0" prefWidth="691.0" promptText="Ecrivez votre message..." />
                </children>
             </AnchorPane>
         </items>
