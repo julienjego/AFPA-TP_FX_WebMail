@@ -4,13 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
 public class AddAddress {
 
@@ -35,15 +30,13 @@ public class AddAddress {
         String firstName = txtPrenom.getText();
         String mail = txtMail.getText();
 
-        //TODO add new to mails.csv and refresh csv each time you click on the combobox
+        //TODO add new mail to mails.csv and refresh csv each time you click on the combobox
 
         //String[] newMail = {firstName + " " + name.toUpperCase() + " : ", mail};
 
         //String newMail = String.format("%s %s : %s", firstName, name, mail);
 
         //controller.getCbxDest().getItems().add(newMail);
-
-
 
 
     }
