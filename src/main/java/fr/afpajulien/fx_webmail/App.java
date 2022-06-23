@@ -1,7 +1,6 @@
 package fr.afpajulien.fx_webmail;
 
 import java.io.IOException;
-import java.util.Optional;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -34,11 +33,11 @@ public class App extends Application {
 		alert.initModality(Modality.APPLICATION_MODAL);
 		alert.getDialogPane().setHeaderText("Voulez-vous vraiment quitter l'application ?");
 
-		Optional<ButtonType> result = alert.showAndWait();
+		ButtonType result = alert.showAndWait().orElseThrow();
 
-		if (result.get() == ButtonType.OK) {
+		if (result == ButtonType.OK) {
 			System.exit(0);
-		} else if (result.get() == ButtonType.CANCEL) {
+		} else if (result == ButtonType.CANCEL) {
 			event.consume();
 		}
 	};
