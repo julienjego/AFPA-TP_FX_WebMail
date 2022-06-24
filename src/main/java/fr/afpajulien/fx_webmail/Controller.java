@@ -16,7 +16,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -42,10 +41,6 @@ public class Controller implements Initializable {
     @FXML
     private ComboBox<String> cbxDest;
 
-    public ComboBox<String> getCbxDest() {
-        return cbxDest;
-    }
-
     @FXML
     private Label lblMsgError;
 
@@ -64,12 +59,9 @@ public class Controller implements Initializable {
 
 
     @Override
+
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            addMailAddresses();
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
+
         btnMsgSend.setDisable(true);
         btnMsgSendFooter.setDisable(true);
         itmSend.setDisable(true);
@@ -104,11 +96,12 @@ public class Controller implements Initializable {
         cbxDest.valueProperty().addListener(e -> checkIfEmpty());
     }
 
-    private void addMailAddresses() throws URISyntaxException {
-        String path = String.valueOf(Paths.get(App.class.getResource("/mails.csv").toURI()));
+    public void addMailAddresses() {
+        String path = "src/main/resources/mails.csv";
         String line;
 
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+            records.clear();
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(";");
                 records.add(values[0] + " : " + values[1]);
@@ -116,6 +109,7 @@ public class Controller implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        cbxDest.getItems().clear();
         cbxDest.getItems().addAll(records);
     }
 
@@ -124,10 +118,10 @@ public class Controller implements Initializable {
         txtSubject.clear();
     }
 
-    public void openMsg() throws URISyntaxException {
+    public void openMsg() {
         FileChooser fileChooser = new FileChooser();
 
-        File defaultDir = new File(App.class.getResource("/msg").toURI());
+        File defaultDir = new File("src/main/resources/msg/");
         fileChooser.setInitialDirectory(defaultDir);
         Stage direc = (Stage) mainPane.getScene().getWindow();
         fileChooser.showOpenDialog(direc);
@@ -185,15 +179,28 @@ public class Controller implements Initializable {
     public void sendMsg() throws IOException {
 
         List<String> lines = Arrays.asList("From: " + cbxDest.getSelectionModel().getSelectedItem(), "Object: " + txtSubject.getText(), "Text: " + txtMsg.getText());
-        String beginPath = String.valueOf(App.class.getResource("/msg/"));
-        beginPath = beginPath.substring(6); // enlève le "file:/" inconvenant
+        String beginPath = "src/main/resources/msg/";
         Path mail = Paths.get(beginPath + txtSubject.getText() + ".txt");
-
         Path p = Files.createFile(mail);
         System.out.println("create at " + p);
 
         Files.write(mail, lines, StandardCharsets.UTF_8);
+        confirmMsgSend();
+    }
 
+    public void confirmMsgSend() {
+        Alert.AlertType type = Alert.AlertType.INFORMATION;
+        Alert alert = new Alert(type, "");
+        alert.initModality(Modality.APPLICATION_MODAL);
+        alert.getDialogPane().setHeaderText("Le mail a bien été envoyé !");
+
+        ButtonType result = alert.showAndWait().orElseThrow();
+
+        if (result == ButtonType.OK) {
+            txtSubject.clear();
+            txtMsg.clear();
+            alert.close();
+        }
     }
 
     public void openAbout() throws IOException {
@@ -210,10 +217,10 @@ public class Controller implements Initializable {
     public void openAddNewAddress() throws IOException {
         FXMLLoader fxmlAdd = new FXMLLoader(App.class.getResource("addAddress.fxml"));
         Stage window = new Stage();
-        Scene about = new Scene(fxmlAdd.load());
+        Scene newMailScene = new Scene(fxmlAdd.load());
         window.setTitle("Ajouter une nouvelle adresse mail");
         window.getIcons().add(new Image(App.class.getResource("/icon.png").toExternalForm()));
-        window.setScene(about);
+        window.setScene(newMailScene);
         window.setResizable(false);
         window.showAndWait();
     }

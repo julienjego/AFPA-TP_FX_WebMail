@@ -7,12 +7,12 @@
 
 <AnchorPane fx:id="addMailPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="296.0" prefWidth="490.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.afpajulien.fx_webmail.AddAddress">
    <children>
-      <Label layoutX="67.0" layoutY="57.0" text="Nom" />
-      <Label layoutX="67.0" layoutY="102.0" text="Prénom" />
+      <Label layoutX="67.0" layoutY="57.0" text="Prénom" />
+      <Label layoutX="67.0" layoutY="102.0" text="Nom" />
       <Label layoutX="67.0" layoutY="148.0" text="Adresse mail" />
       <TextField fx:id="txtMail" layoutX="157.0" layoutY="144.0" prefHeight="25.0" prefWidth="220.0" />
-      <TextField fx:id="txtNom" layoutX="157.0" layoutY="53.0" prefHeight="25.0" prefWidth="220.0" />
-      <TextField fx:id="txtPrenom" layoutX="157.0" layoutY="98.0" prefHeight="25.0" prefWidth="220.0" />
+      <TextField fx:id="txtPrenom" layoutX="157.0" layoutY="53.0" prefHeight="25.0" prefWidth="220.0" />
+      <TextField fx:id="txtNom" layoutX="157.0" layoutY="98.0" prefHeight="25.0" prefWidth="220.0" />
       <Button fx:id="btnAdd" layoutX="260.0" layoutY="204.0" mnemonicParsing="false" onAction="#addNewAddress" text="Enregistrer adresse" />
    </children>
 </AnchorPane>

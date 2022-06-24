@@ -79,7 +79,7 @@
                      </tooltip></Button>
                   <TextField fx:id="txtSubject" layoutX="281.0" layoutY="16.0" promptText="Saisissez un objet..." />
                   <Label layoutX="245.0" layoutY="20.0" text="Sujet" />
-                  <ComboBox fx:id="cbxDest" layoutX="497.0" layoutY="16.0" prefHeight="25.0" prefWidth="196.0" promptText="Sélectionner un destinataire" />
+                  <ComboBox fx:id="cbxDest" layoutX="497.0" layoutY="16.0" onMouseClicked="#addMailAddresses" prefHeight="25.0" prefWidth="196.0" promptText="Sélectionner un destinataire" />
                   <Label layoutX="458.0" layoutY="20.0" text="Pour" />
                </children>
             </AnchorPane>

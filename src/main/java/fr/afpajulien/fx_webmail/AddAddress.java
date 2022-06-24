@@ -1,17 +1,18 @@
 package fr.afpajulien.fx_webmail;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URISyntaxException;
+import java.util.regex.Pattern;
 
 public class AddAddress {
-
-    private Controller controller = new Controller();
 
     @FXML
     private Button btnAdd;
@@ -25,24 +26,62 @@ public class AddAddress {
     @FXML
     private TextField txtPrenom;
 
-
     public void addNewAddress() {
         String name = txtNom.getText().toUpperCase();
         String firstName = txtPrenom.getText();
-        String mail = txtMail.getText();
+        String mail = txtMail.getText().toLowerCase();
 
-        String newMail = String.format("%s %s;%s", firstName, name, mail);
+        String newMail = String.format("%n%s %s;%s", firstName, name, mail);
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("mails.csv", true))) {
-            writer.append(newMail);
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (isValiEmail(mail)) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/mails.csv", true))) {
+                writer.append(newMail);
+                alertNewAddressOK();
+                txtPrenom.clear();
+                txtNom.clear();
+                txtMail.clear();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            alertWrongAddress();
+            txtPrenom.clear();
+            txtNom.clear();
+            txtMail.clear();
         }
 
-        //TODO add new mail to mails.csv and refresh csv each time you click on the combobox
+    }
 
+    private void alertWrongAddress() {
+        Alert.AlertType type = Alert.AlertType.ERROR;
+        Alert alert = new Alert(type, "");
+        alert.initModality(Modality.APPLICATION_MODAL);
+        alert.getDialogPane().setHeaderText("L'adresse mail n'est pas valide !");
 
+        ButtonType result = alert.showAndWait().orElseThrow();
 
+        if (result == ButtonType.OK) {
+            alert.close();
+        }
+    }
+
+    private void alertNewAddressOK() {
+        Alert.AlertType type = Alert.AlertType.INFORMATION;
+        Alert alert = new Alert(type, "");
+        alert.initModality(Modality.APPLICATION_MODAL);
+        alert.getDialogPane().setHeaderText("L'adresse mail a bien été enregistré !");
+
+        ButtonType result = alert.showAndWait().orElseThrow();
+
+        if (result == ButtonType.OK) {
+            alert.close();
+        }
+    }
+
+    private boolean isValiEmail(String email) {
+        Pattern mailPattern = Pattern.compile(
+                "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}\\@[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}(\\.[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25})+"
+        );
+        return mailPattern.matcher(email).matches();
     }
 }
