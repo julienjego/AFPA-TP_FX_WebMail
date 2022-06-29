@@ -12,6 +12,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
+/**
+ * The type Add address.
+ */
 public class AddAddress {
 
     @FXML
@@ -26,6 +29,9 @@ public class AddAddress {
     @FXML
     private TextField txtPrenom;
 
+    /**
+     * Add new address.
+     */
     public void addNewAddress() {
         String name = txtNom.getText().toUpperCase();
         String firstName = txtPrenom.getText();
@@ -52,6 +58,10 @@ public class AddAddress {
 
     }
 
+    /**
+     * Window alerts address is not added.
+     */
+
     private void alertWrongAddress() {
         Alert.AlertType type = Alert.AlertType.ERROR;
         Alert alert = new Alert(type, "");
@@ -64,6 +74,10 @@ public class AddAddress {
             alert.close();
         }
     }
+
+    /**
+     * Window confirms address is added.
+     */
 
     private void alertNewAddressOK() {
         Alert.AlertType type = Alert.AlertType.INFORMATION;
@@ -78,6 +92,11 @@ public class AddAddress {
         }
     }
 
+    /**
+     * Pattern to verify mail address.
+     * @param email
+     * @return
+     */
     private boolean isValiEmail(String email) {
         Pattern mailPattern = Pattern.compile(
                 "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}\\@[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}(\\.[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25})+"

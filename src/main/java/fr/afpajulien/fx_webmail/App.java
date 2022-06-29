@@ -27,6 +27,9 @@ public class App extends Application {
 		stage.setOnCloseRequest(confirmQuit);
 	}
 
+	/**
+	 * Window confirm app quit for main window.
+	 */
 	private final EventHandler<WindowEvent> confirmQuit = event -> {
 		Alert.AlertType type = Alert.AlertType.CONFIRMATION;
 		Alert alert = new Alert(type, "");

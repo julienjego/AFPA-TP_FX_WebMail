@@ -26,6 +26,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * @author Julien Jégo
+ * The type Controller.
+ */
 public class Controller implements Initializable {
 
     @FXML
@@ -66,6 +70,8 @@ public class Controller implements Initializable {
         btnMsgSendFooter.setDisable(true);
         itmSend.setDisable(true);
 
+        // Set icon for buttons
+
         btnMsgNew.setGraphic(new ImageView(new Image(App.class.getResource("/new.png").toExternalForm(), 24, 24, true, true)));
         btnMsgNew.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
 
@@ -78,6 +84,9 @@ public class Controller implements Initializable {
         init();
     }
 
+    /**
+     * Init.
+     */
     public void init() {
         initTxtSubject();
         initTxtMsg();
@@ -96,6 +105,9 @@ public class Controller implements Initializable {
         cbxDest.valueProperty().addListener(e -> checkIfEmpty());
     }
 
+    /**
+     * Add mail addresses in combobox from csv.
+     */
     public void addMailAddresses() {
         String path = "src/main/resources/mails.csv";
         String line;
@@ -113,11 +125,17 @@ public class Controller implements Initializable {
         cbxDest.getItems().addAll(records);
     }
 
+    /**
+     * Method use when "create new msg" is confirm.
+     */
     public void createNewMsg() {
         txtMsg.clear();
         txtSubject.clear();
     }
 
+    /**
+     * Open folder of old messsages.
+     */
     public void openMsg() {
         FileChooser fileChooser = new FileChooser();
 
@@ -127,6 +145,9 @@ public class Controller implements Initializable {
         fileChooser.showOpenDialog(direc);
     }
 
+    /**
+     * Window confirm app quit for menu item.
+     */
     public void confirmQuit() {
         Alert.AlertType type = Alert.AlertType.CONFIRMATION;
         Alert alert = new Alert(type, "");
@@ -146,6 +167,9 @@ public class Controller implements Initializable {
         }
     }
 
+    /**
+     * Confirm creation new msg.
+     */
     public void confirmNewMsg() {
         Alert.AlertType type = Alert.AlertType.CONFIRMATION;
         Alert alert = new Alert(type, "");
@@ -163,6 +187,9 @@ public class Controller implements Initializable {
         }
     }
 
+    /**
+     * Check if text area or comobox are empty.
+     */
     public void checkIfEmpty() {
 
         if (txtMsg.getText().isEmpty() || txtSubject.getText().isEmpty() || cbxDest.getSelectionModel().isEmpty()) {
@@ -176,6 +203,11 @@ public class Controller implements Initializable {
         }
     }
 
+    /**
+     * Method for sending msg.
+     *
+     * @throws IOException the io exception
+     */
     public void sendMsg() throws IOException {
 
         List<String> lines = Arrays.asList("From: " + cbxDest.getSelectionModel().getSelectedItem(), "Object: " + txtSubject.getText(), "Text: " + txtMsg.getText());
@@ -188,6 +220,9 @@ public class Controller implements Initializable {
         confirmMsgSend();
     }
 
+    /**
+     * Confirm message for msg send.
+     */
     public void confirmMsgSend() {
         Alert.AlertType type = Alert.AlertType.INFORMATION;
         Alert alert = new Alert(type, "");
@@ -203,6 +238,11 @@ public class Controller implements Initializable {
         }
     }
 
+    /**
+     * Open "about" window.
+     *
+     * @throws IOException the io exception
+     */
     public void openAbout() throws IOException {
         FXMLLoader fxmlAbout = new FXMLLoader(App.class.getResource("about.fxml"));
         Stage window = new Stage();
@@ -214,6 +254,11 @@ public class Controller implements Initializable {
         window.showAndWait();
     }
 
+    /**
+     * Open "add new address" window.
+     *
+     * @throws IOException the io exception
+     */
     public void openAddNewAddress() throws IOException {
         FXMLLoader fxmlAdd = new FXMLLoader(App.class.getResource("addAddress.fxml"));
         Stage window = new Stage();
